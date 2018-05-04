@@ -36,7 +36,7 @@ let token_auth = (req, res, next) => {
                   sql: 'CALL LastPwdUpdate(?);'
             }, [req.id], (err, results, fields) => {
                   if (err) {
-                        res.json({err: 'Error occured'});
+                        res.json({err: 'Token Query Failed'});
                         res.end();
                         return;
                   }
@@ -48,7 +48,7 @@ let token_auth = (req, res, next) => {
                         // the jwt time is after last update time
                         next();
                   else {
-                        res.json({err: 'Error occured'});
+                        res.json({err: 'Old token'});
                         res.end();
                         return;
                   }
