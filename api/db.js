@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('./../../database.js');
+const connection = require('./../database.js');
 
 let router = express.Router();
 

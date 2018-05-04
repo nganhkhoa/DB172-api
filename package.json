@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "echo 'Start in dev mode' && nodemon server.js",
-    // "publish": "echo 'Start in production mode' && export PRODUCTION=1 && nodemon server.js"
+    "start": "echo 'Start in dev mode' && nodemon server.js"
   },
   "keywords": [],
   "author": "",
