@@ -1,6 +1,6 @@
 const express = require('express');
 // const connection = require('./database.js');
-const apiRouter_v1 = require('./api/v1/api.js');
+const apiRouter = require('./api/api.js');
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 8080;
@@ -13,7 +13,7 @@ let app = express();
 app.use(bodyParser());
 
 // api routing
-app.use('/api/v1/', apiRouter_v1);
+app.use('/api', apiRouter);
 
 // now listen
 app.listen(PORT);

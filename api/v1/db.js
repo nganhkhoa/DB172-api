@@ -17,4 +17,17 @@ router.get('/user', (req, res) => {
       });
 });
 
+router.get('/course', (req, res) => {
+      connection.query({
+            sql: 'SELECT * FROM Course'
+      }, (err, results, fields) => {
+            if (err) {
+                  res.json({err: 'ERR'});
+                  res.end();
+            }
+
+            res.json({err: null, result: results});
+      });
+});
+
 module.exports = router;

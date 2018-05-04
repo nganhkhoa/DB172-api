@@ -31,6 +31,7 @@ router.post('/register', (req, res) => {
       if (!name || !pass || !email) {
             res.json({err: 'no username or password'});
             res.end();
+            return;
       }
 
       pass = pwdhash(pass);
@@ -56,6 +57,7 @@ router.post('/login', (req, res) => {
       if (!name || !pass) {
             res.json({err: 'no username or password'});
             res.end();
+            return;
       }
 
       // pass = crypto.createHmac('sha256', pass).digest('hex');
@@ -70,11 +72,13 @@ router.post('/login', (req, res) => {
                   return;
             }
 
-            let ID = results[0][0].ID;
-            if (!ID)
-                  res.json({err: 'Error'});
-            else
+            try {
+                  let ID = results[0][0].ID;
                   res.json({err: null, token: tokenizer(ID)});
+            }
+            catch (err) {
+                  res.json({err: 'Error'});
+            }
       });
 });
 
@@ -106,6 +110,7 @@ router.post('/me/reset_password', (req, res) => {
       if (!name || !pass || !new_pass) {
             res.json({err: 'no username or password'});
             res.end();
+            return;
       }
 
       pass = pwdhash(pass);

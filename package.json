@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "echo 'Start in dev mode' && nodemon server.js",
-    "production": "echo 'Start in production mode' && export PRODUCTION=1 && nodemon server.js"
+    // "publish": "echo 'Start in production mode' && export PRODUCTION=1 && nodemon server.js"
   },
   "keywords": [],
   "author": "",
