@@ -37,10 +37,10 @@ router.post('/register', (req, res) => {
       pass = pwdhash(pass);
 
       connection.query({
-            sql: 'AddUser(?, ?, ?)'
+            sql: 'CALL AddUser(?, ?, ?)'
       }, [name, pass, email], (err, results, fields) => {
             if (err) {
-                  res.json({err: 'username or email already existed'});
+                  res.json({err: 'username or email already existed', msg: err});
                   res.end();
                   return;
             }
