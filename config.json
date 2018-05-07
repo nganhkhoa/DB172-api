@@ -2,8 +2,8 @@
       "database": {
             "host": "localhost",
             "port": "",
-            "user": "luibo",
-            "password": "thaodethuong",
+            "user": "root",
+            "password": "260498",
             "database": "db_online_course"
       },
       "jwt_secret": "e6XOimIy0Ebiw1PPrmqz"
