@@ -74,7 +74,8 @@ router.post('/login', (req, res) => {
 
             try {
                   let ID = results[0][0].ID;
-                  res.json({err: null, token: tokenizer(ID)});
+                  let Image = results[0].[0].Image;
+                  res.json({err: null, token: tokenizer(ID), image: Image});
             }
             catch (err) {
                   res.json({err: 'Error'});
