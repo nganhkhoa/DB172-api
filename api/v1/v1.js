@@ -6,7 +6,7 @@ router.use('/course', require('./course.js'));
 router.use('/auth', require('./auth.js'));
 router.use('/class', require('./class.js'));
 router.use('/lesson', require('./lesson.js'));
-
+router.use('/content', require('./content.js'));
 
 router.all('/*', (req, res) => {
       res.send('error');

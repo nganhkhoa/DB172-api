@@ -23,16 +23,17 @@ router.param('id', (req, res, next, id) => {
       next();
 });
 
-router.get('/:lessonid', (req, res) => {
+router.get('/:contentid', (req, res) => {
 
-      let lessonid = req.params.lessonid;
+      let contentid = req.params.contentid;
       let classid = req.query.class;
       let courseid = req.query.course;
+      let lessonid = req.query.lesson;
 
       console.log(req.query);
       connection.query({
-            sql: 'CALL GetLesson(? , ? , ?);'
-      }, [courseid , classid, lessonid], (err, results, fields) => {
+            sql: 'CALL GetContent(? , ? , ? , ?);'
+      }, [courseid , classid, lessonid, contentid], (err, results, fields) => {
             if (err) {
                   res.json({err: 'Error occured'});
                   res.end();
@@ -48,26 +49,32 @@ router.get('/:lessonid', (req, res) => {
 
 
 router.post('/', (req, res) => {
-      let Lname = req.body['Lname']
+
       let classid = req.query.class;
       let courseid = req.query.course;
+      let lessonid = req.query.lesson;
 
-      if(!Lname ||!courseid || !classid){
-            res.json({err: 'no course_ID or class_ID or Lname'});
+      let title = req.body['title'];
+      let text = req.body['text'];
+      let type = req.body['type'];
+
+      if(!lessonid ||!courseid || !classid ||!title ||!text || !type){
+            res.json({err: 'lack of information'});
             res.end();
             return;
       }
 
       connection.query({
-            sql: 'CALL AddLesson(? , ?, ?)'
-      }, [courseid , classid, Lname], (err, results, fields) => {
+            sql: 'CALL AddContent(?, ?, ?, ?, ?, ?)'
+      }, [courseid , classid, lessonid, title, text, type],
+      (err, results, fields) => {
             if (err) {
-                  res.json({err: err});
+                  res.json({err:err});
                   res.end();
                   return;
             }
 
-            res.json({err: null, message: 'Create lesson successfully'});
+            res.json({err: null, message: 'Create content successfully'});
       });
 });
 

@@ -45,7 +45,9 @@ router.get('/:classid', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-      let courseid = req.body['courseid'];
+      
+
+      let courseid = req.query.course;
       let teacherid = req.body['teacherid'];
 
       if(!courseid || !teacherid){
