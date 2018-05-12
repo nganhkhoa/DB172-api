@@ -23,13 +23,35 @@ router.param('id', (req, res, next, id) => {
       next();
 });
 
+
+router.get('/', (req, res) => {
+
+      let courseid = req.query.course;
+
+      connection.query({
+            sql: 'SELECT OpenDate, EndDate, Teacher_ID, NoLesson FROM Class WHERE Course_ID = ? ;'
+      }, [courseid], (err, results, fields) => {
+            if (err) {
+                  res.json({err: 'Error occured'});
+                  res.end();
+                  return;
+            }
+
+            if (!results[0][0])
+                  res.json({err: 'Error occured'});
+            else
+                  res.json(results[0][0]);
+      });
+});
+
+
 router.get('/:classid', (req, res) => {
 
       let classid = req.params.classid;
       let courseid = req.query.course;
 
       connection.query({
-            sql: 'CALL GetClass(? , ?);'
+            sql: 'SELECT OpenDate, EndDate, Teacher_ID, NoLesson FROM Class WHERE Course_ID = ? AND Class_ID = ?;'
       }, [courseid , classid], (err, results, fields) => {
             if (err) {
                   res.json({err: 'Error occured'});

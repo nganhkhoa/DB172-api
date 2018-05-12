@@ -30,20 +30,19 @@ router.get('/:contentid', (req, res) => {
       let courseid = req.query.course;
       let lessonid = req.query.lesson;
 
-      console.log(req.query);
       connection.query({
-            sql: 'CALL GetContent(? , ? , ? , ?);'
+            sql: 'SELECT Title, Text, Type, LastUpdate FROM Content WHERE Course_ID = ? AND Class_ID = ? AND Lesson_ID = ? AND Content_ID = ?'
       }, [courseid , classid, lessonid, contentid], (err, results, fields) => {
             if (err) {
                   res.json({err: 'Error occured'});
                   res.end();
                   return;
             }
-
-            if (!results[0][0])
+            if (!results[0])
                   res.json({err: 'Error occured'});
             else
-                  res.json(results[0][0]);
+                  res.json(results[0]);
+            
       });
 });
 

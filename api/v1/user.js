@@ -134,7 +134,7 @@ router.post('/me/reset_password', (req, res) => {
 router.get('/:id', (req, res) => {
       let id = req.id;
       connection.query({
-            sql: 'CALL GetUserInfo(?);'
+            sql: 'SELECT Username, Name, Female, DoB, Email, FacebookToken, isTeacher, Image, CreateDate FROM User WHERE User_ID= ?;'
       }, [id], (err, results, fields) => {
             if (err) {
                   res.json({err: 'User not found'});

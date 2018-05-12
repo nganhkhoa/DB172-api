@@ -23,9 +23,32 @@ router.param('id', (req, res, next, id) => {
       next();
 });
 
+
+router.get('/', (req, res) => {
+      connection.query({
+            sql:'SELECT User.Name, User.Image, User.Star,  \
+                Course.Course_ID, Course.Name, Course.Description, Course.Star, \
+                Course.OpenedClass, Course.Teacher_ID, Course.ImageLink \
+                FROM Course, User WHERE User.User_ID = Course.Teacher_ID \
+                ORDER BY Course.CreateDate DESC LIMIT 20'
+      }, (err, results, fields) => {
+            if (err) {
+                  res.json({err: 'Error occured !!!'});
+                  res.end();
+                  return;
+            }
+
+            if (!results)
+                  res.json({err: 'Error occured'});
+            else
+                  res.json(results);
+      });
+});
+
+
 router.get('/:id', (req, res) => {
       connection.query({
-            sql: 'CALL GetCourse(?);'
+            sql: 'SELECT Name, Description, Star, Length, CreateDate, OpenedClass FROM Course WHERE Course_ID = ?;'
       }, [req.id], (err, results, fields) => {
             if (err) {
                   res.json({err: 'Error occured'});
